@@ -6,14 +6,9 @@ RUN apt-get update && apt-get install -y xrdp lxde lxdm supervisor git vim mc fi
 # ADD WINE
 # based on https://github.com/webanck/docker-wine-steam
 RUN dpkg --add-architecture i386 && \
-    apt-get update && \
-    apt-get install -y software-properties-common && \
     add-apt-repository ppa:wine/wine-builds && \
     apt-get update && \
-    apt-get install -y --install-recommends winehq-devel cabextract unzip p7zip wget zenity xvfb && \
-    wget https://raw.githubusercontent.com/Winetricks/winetricks/master/src/winetricks && chmod ugo+x winetricks && mv winetricks /usr/local/bin && \
-    su user -c winecfg && \
-    
+    apt-get install -y --install-recommends winehq-devel \
 ADD supervisor.conf /etc/supervisor/conf.d/xrdp.conf
 RUN useradd --create-home -G sudo --shell /bin/bash admin && \
 	echo "admin:admin" | chpasswd	
